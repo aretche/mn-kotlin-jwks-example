@@ -10,7 +10,7 @@ class RsaJwk(
         @GeneratedValue
         val id: Long,
 
-        @Column(name = "kid", nullable = false)
+        @Column(name = "kid", unique=true, nullable = false)
         val kid: String,
 
         @Column(name = "private_jwk", length = 5000, nullable = false)
