@@ -7,7 +7,8 @@ import javax.persistence.*
 @Table(name = "rsa_jwk")
 class RsaJwk(
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rsa_jwk_id_seq")
+        @SequenceGenerator(name = "rsa_jwk_id_seq", sequenceName = "rsa_jwk_id_seq", allocationSize = 1)
         val id: Long,
 
         @Column(name = "kid", unique=true, nullable = false)
