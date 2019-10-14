@@ -2,6 +2,24 @@ micronaut:
   application:
     name: example
 
+  security:
+    enabled: true
+    endpoints:
+      login:
+        enabled: true
+      oauth:
+        enabled: true
+      keys:
+        enabled: true
+        path: /.well-known/jwks.json
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          secret:
+            generator:
+              jws-algorithm: RS256
+
 datasources:
   default:
     url: ${JDBC_URL:`jdbc:postgresql://localhost/example-jwks`}
