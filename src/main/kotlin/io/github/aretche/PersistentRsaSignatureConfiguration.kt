@@ -14,6 +14,7 @@ class PersistentRsaSignatureConfiguration(private val rsaJwkRepository: RsaJwkRe
 
     private var keyPair: RSAKey? = null
 
+    @Synchronized
     private fun ensureKeyPair() {
         if (keyPair == null) {
             val rsaJwk = rsaJwkRepository.getLast()
