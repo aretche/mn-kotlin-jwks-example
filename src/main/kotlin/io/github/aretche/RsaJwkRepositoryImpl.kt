@@ -1,6 +1,7 @@
 package io.github.aretche
 
 import com.nimbusds.jose.jwk.KeyUse
+import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator
 import io.github.aretche.domain.RsaJwk
 import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession
@@ -35,6 +36,16 @@ open class RsaJwkRepositoryImpl(@param:CurrentSession
         val query = entityManager.createQuery(qlString, RsaJwk::class.java)
         return if (query.resultList.isNotEmpty()) {
             query.resultList.first()
+        } else {
+            null
+        }
+    }
+
+    @Transactional(readOnly = true)
+    override fun getLastRSAKey(): RSAKey? {
+        val rsaJwk = this.getLast()
+        return if (null != rsaJwk) {
+            RSAKey.parse(rsaJwk.privateJwk)
         } else {
             null
         }
