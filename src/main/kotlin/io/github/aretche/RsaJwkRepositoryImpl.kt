@@ -14,10 +14,6 @@ import javax.persistence.PersistenceContext
 open class RsaJwkRepositoryImpl(@param:CurrentSession
                                 @field:PersistenceContext
                                 private val entityManager: EntityManager) : RsaJwkRepository {
-    @Transactional(readOnly = true)
-    override fun findById(id: Long): RsaJwk? {
-        return entityManager.find(RsaJwk::class.java, id)
-    }
 
     @Transactional(readOnly = true)
     override fun findByKid(kid: String): RsaJwk? {
@@ -47,16 +43,10 @@ open class RsaJwkRepositoryImpl(@param:CurrentSession
     @Transactional
     override fun createKey(): RsaJwk? {
         // Generate 2048-bit RSA key pair in JWK format, attach some metadata
-        val jwk = RSAKeyGenerator(2048)
+        val rsaJwk = RsaJwk(RSAKeyGenerator(2048)
                 .keyUse(KeyUse.SIGNATURE) // indicate the intended use of the key
                 .keyID(UUID.randomUUID().toString()) // give the key a unique ID
-                .generate()
-        val rsaJwk = RsaJwk(id = 0,
-                kid = jwk.keyID,
-                publicJwk = jwk.toPublicJWK().toJSONString(),
-                privateJwk = jwk.toJSONString(),
-                active = true,
-                dateCreated = Date())
+                .generate())
         entityManager.persist(rsaJwk)
         return rsaJwk
     }
