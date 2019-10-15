@@ -13,7 +13,7 @@ class HomeController {
 
     @Produces(MediaType.TEXT_PLAIN)
     @Get("/")
-    fun index(principal: Principal) : String {
+    fun index(principal: Principal): String {
         return principal.name
     }
 }

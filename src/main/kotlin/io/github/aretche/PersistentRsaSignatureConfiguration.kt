@@ -10,14 +10,14 @@ import javax.inject.Singleton
 
 @Singleton
 @Named("generator")
-class PersistentRsaSignatureConfiguration(private val rsaJwkRepository: RsaJwkRepositoryImpl): RSASignatureGeneratorConfiguration {
+class PersistentRsaSignatureConfiguration(private val rsaJwkRepository: RsaJwkRepositoryImpl) : RSASignatureGeneratorConfiguration {
 
-   private var keyPair: RSAKey? = null
+    private var keyPair: RSAKey? = null
 
-    private fun ensureKeyPair(){
+    private fun ensureKeyPair() {
         if (keyPair == null) {
             val rsaJwk = rsaJwkRepository.getLast()
-            keyPair = if(rsaJwk == null){
+            keyPair = if (rsaJwk == null) {
                 RSAKey.parse(rsaJwkRepository.createKey()?.privateJwk)
             } else {
                 RSAKey.parse(rsaJwk.privateJwk)

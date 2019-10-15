@@ -2,7 +2,10 @@ package io.github.aretche.domain
 
 import com.nimbusds.jose.jwk.RSAKey
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
 @Table(name = "rsa_jwk")
@@ -19,6 +22,6 @@ class RsaJwk(
 
         @Column(name = "date_created", nullable = false)
         val dateCreated: Date
-){
-        constructor(jwk: RSAKey): this(kid = jwk.keyID, privateJwk = jwk.toJSONString(), active = true, dateCreated = Date())
+) {
+    constructor(jwk: RSAKey) : this(kid = jwk.keyID, privateJwk = jwk.toJSONString(), active = true, dateCreated = Date())
 }
