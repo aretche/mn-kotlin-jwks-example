@@ -42,7 +42,7 @@ open class RsaJwkRepositoryImpl(@param:CurrentSession
 
     @Transactional
     override fun createKey(): RsaJwk? {
-        // Generate 2048-bit RSA key pair in JWK format, attach some metadata
+        // Generate 2048-bit RSA key pair, attach some metadata
         val rsaJwk = RsaJwk(RSAKeyGenerator(2048)
                 .keyUse(KeyUse.SIGNATURE) // indicate the intended use of the key
                 .keyID(UUID.randomUUID().toString()) // give the key a unique ID
