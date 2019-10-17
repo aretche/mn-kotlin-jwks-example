@@ -33,7 +33,6 @@ dependencies {
     implementation "io.micronaut.configuration:micronaut-jdbc-hikari"
     annotationProcessor "javax.persistence:javax.persistence-api:2.2"
     implementation "io.micronaut.configuration:micronaut-hibernate-jpa"
-    implementation "io.micronaut.configuration:micronaut-hibernate-validator"
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
     kapt "io.micronaut:micronaut-inject-java"
     kapt "io.micronaut:micronaut-validation"
